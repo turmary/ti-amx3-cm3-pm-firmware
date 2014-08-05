@@ -42,6 +42,7 @@ void clkdm_sleep(enum clkdm_id id);
 void clkdm_wake(enum clkdm_id id);
 void clkdms_sleep(void);
 void clkdms_wake(void);
+void clkdms_standby_wake(void);
 bool clkdm_active(enum clkdm_id id);
 
 #endif

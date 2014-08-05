@@ -43,3 +43,9 @@ const enum clkdm_id am43xx_sleep_clkdms[] = {
 
 	CLKDM_END,
 };
+
+const enum clkdm_id am43xx_standby_clkdms[] = {
+	CLKDM_L3S,
+
+	CLKDM_END,
+};

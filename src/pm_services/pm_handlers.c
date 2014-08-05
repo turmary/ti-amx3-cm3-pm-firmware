@@ -477,6 +477,7 @@ void a8_wake_standby_handler(void)
 	pd_state_restore(PD_MPU);
 
 	essential_hwmods_enable();
+	clkdms_standby_wake();
 
 	msg_cmd_stat_update(result);
 

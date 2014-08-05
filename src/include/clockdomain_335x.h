@@ -17,6 +17,7 @@ enum clkdm_id;
 
 extern const unsigned int am335x_clkdms[];
 extern const enum clkdm_id am335x_sleep_clkdms[];
+extern const enum clkdm_id am335x_standby_clkdms[];
 
 #endif
 

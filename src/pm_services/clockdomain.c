@@ -21,15 +21,18 @@
 
 static const unsigned int *clkdms;
 static const enum clkdm_id *sleep_clkdms;
+static const enum clkdm_id *standby_clkdms;
 
 void clockdomain_init(void)
 {
 	if (soc_id == AM335X_SOC_ID) {
 		clkdms = am335x_clkdms;
 		sleep_clkdms = am335x_sleep_clkdms;
+		standby_clkdms = am335x_standby_clkdms;
 	} else if (soc_id == AM43XX_SOC_ID) {
 		clkdms = am43xx_clkdms;
 		sleep_clkdms = am43xx_sleep_clkdms;
+		standby_clkdms = am43xx_standby_clkdms;
 	}
 }
 
@@ -106,4 +109,9 @@ void clkdms_sleep(void)
 void clkdms_wake(void)
 {
 	clkdms_state_change(CLKDM_WAKE, sleep_clkdms);
+}
+
+void clkdms_standby_wake(void)
+{
+	clkdms_state_change(CLKDM_WAKE, standby_clkdms);
 }
