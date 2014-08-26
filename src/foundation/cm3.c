@@ -16,11 +16,9 @@
 void nvic_enable_irq(int irq_no)
 {
 	int reg_offset = irq_no/32;
-
 	unsigned int irq_reg;
 
-	irq_reg = __raw_readl(NVIC_IRQ_SET_EN1 + (reg_offset*0x4));
-	irq_reg |= (1 << (irq_no%32));
+	irq_reg = (1 << (irq_no%32));
 
 	__raw_writel(irq_reg, (NVIC_IRQ_SET_EN1 + (reg_offset*0x4)));
 
@@ -29,11 +27,9 @@ void nvic_enable_irq(int irq_no)
 void nvic_disable_irq(int irq_no)
 {
 	int reg_offset = irq_no/32;
-
 	unsigned int irq_reg;
 
-	irq_reg = __raw_readl(NVIC_IRQ_CLR_EN1 + (reg_offset*0x4));
-	irq_reg |= (1 << (irq_no%32));
+	irq_reg = (1 << (irq_no%32));
 
 	__raw_writel(irq_reg, (NVIC_IRQ_CLR_EN1 + (reg_offset*0x4)));
 
@@ -42,11 +38,9 @@ void nvic_disable_irq(int irq_no)
 void nvic_clear_irq(int irq_no)
 {
 	int reg_offset = irq_no/32;
-
 	unsigned int irq_reg;
 
-	irq_reg = __raw_readl(NVIC_IRQ_CLR_PEND1 + (reg_offset*0x4));
-	irq_reg |= (1 << (irq_no%32));
+	irq_reg = (1 << (irq_no%32));
 
 	__raw_writel(irq_reg, (NVIC_IRQ_CLR_PEND1 + (reg_offset*0x4)));
 
