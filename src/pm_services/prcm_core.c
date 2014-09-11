@@ -114,6 +114,29 @@ void configure_deepsleep_count(int ds_count)
 	__raw_writel(v, DEEPSLEEP_CTRL);
 }
 
+void enable_io(void)
+{
+	int reg_val;
+
+	/* Clear status */
+	__raw_writel(PRM_IRQSTATUS_M3_IO_ST, PRM_IRQSTATUS_M3);
+
+	/* Enable IO wake up */
+	reg_val = __raw_readl(PRM_IRQENABLE_M3);
+	__raw_writel(PRM_IRQENABLE_M3_IO_EN | reg_val, PRM_IRQENABLE_M3);
+}
+
+void disable_io(void)
+{
+	int reg_val;
+
+	/* Disable IO Wake up */
+	reg_val = __raw_readl(PRM_IRQENABLE_M3);
+	reg_val = reg_val & ~(PRM_IRQENABLE_M3_IO_EN);
+
+	__raw_writel(reg_val, PRM_IRQENABLE_M3);
+}
+
 /*
  * A8 is expected to have left the module in a state where it will
  * cause a wakeup event. Ideally, this function should just enable
@@ -151,8 +174,10 @@ void configure_wake_sources(int wake_sources)
 	if(BB_WDT1_WAKE)
 		nvic_enable_irq(CM3_IRQ_WDT1_WAKE);
 
-	if(BB_PRCMWAKE1)
+	if ((soc_id == AM43XX_SOC_ID) && BB_PRCMWAKE1) {
 		nvic_enable_irq(CM3_IRQ_PRCM_M3_IRQ1);
+		enable_io();
+	}
 #if 0
 	/* Not recommended */
 	if(BB_RTC_TIMER_WAKE)
@@ -203,7 +228,12 @@ void clear_wake_sources(void)
 	nvic_disable_irq(CM3_IRQ_ADC_TSC_WAKE);
 	nvic_disable_irq(CM3_IRQ_USB0WOUT);
 	nvic_disable_irq(CM3_IRQ_USB1WOUT);
-	nvic_disable_irq(CM3_IRQ_PRCM_M3_IRQ1);
+
+	if (soc_id == AM43XX_SOC_ID) {
+		disable_io();
+		nvic_disable_irq(CM3_IRQ_PRCM_M3_IRQ1);
+	}
+
 	if (soc_id == AM43XX_SOC_ID)
 		nvic_disable_irq(CM3_IRQ_TPM_WAKE);
 
