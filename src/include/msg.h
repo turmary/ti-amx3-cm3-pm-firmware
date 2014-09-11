@@ -87,7 +87,7 @@ struct deep_sleep_data {
 	unsigned int pd_mpu_ram_ret_state :1;	/* Sabertooth RAM in retention state */
 	unsigned int pd_mpu_l1_ret_state :1;	/* L1 memory in retention state */
 	unsigned int pd_mpu_l2_ret_state :1;	/* L2 memory in retention state */
-	unsigned int res1 :2;
+	unsigned int res1 :1;
 
 	unsigned int pd_per_state :2;	 	/* Powerstate of PD_PER */
 	unsigned int pd_per_icss_mem_ret_state :1; /* ICSS memory in retention state */
@@ -96,7 +96,7 @@ struct deep_sleep_data {
 	unsigned int pd_per_ocmc2_ret_state :1;	/* OCMC bank 2 in retention state */
 	unsigned int res2 :5;
 
-	unsigned int wake_sources :13;		/* Wake sources */
+	unsigned int wake_sources :14;		/* Wake sources PRCM Added*/
 						/* USB, I2C0, RTC_ALARM, TIMER1 \
 						   UART0, GPIO0_WAKE0, GPIO0_WAKE1, \
 						   WDT1, ADTSC, RTC_TIMER, USBWOUT0, \
