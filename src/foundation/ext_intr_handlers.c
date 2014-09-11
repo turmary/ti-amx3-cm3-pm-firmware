@@ -16,15 +16,23 @@
 #include <msg.h>
 #include <pm_handlers.h>
 #include <sync.h>
-
+#include <prcm_core.h>
+#include <io.h>
 /*
  * PRCM_M3_IRQ1: Triggered for events like PLL needs recalibration,
  * domain transition completed
  */
 void extint16_handler(void)
 {
-	while(1)
-	;
+	int reg_val;
+	nvic_disable_irq(CM3_IRQ_PRCM_M3_IRQ1);
+	generic_wake_handler(CM3_IRQ_PRCM_M3_IRQ1);
+
+	/*
+	 * Clear PRCM IRQ staus register by writing 1s to the set bits
+	 */
+	reg_val = __raw_readl(PRM_IRQSTATUS_M3);
+	__raw_writel(reg_val, PRM_IRQSTATUS_M3);
 }
 
 /* MBINT0: Triggered on a dummy write to Mailbox module */
