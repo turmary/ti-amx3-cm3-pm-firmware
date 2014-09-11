@@ -47,6 +47,7 @@
 #define BB_USBWOUT0		*((volatile int *)(BITBAND_SRAM(&cmd_wake_sources, 10)))
 #define BB_MPU_WAKE		*((volatile int *)(BITBAND_SRAM(&cmd_wake_sources, 11)))
 #define BB_USBWOUT1		*((volatile int *)(BITBAND_SRAM(&cmd_wake_sources, 12)))
+#define BB_PRCMWAKE1		*((volatile int *)(BITBAND_SRAM(&cmd_wake_sources, 13)))
 
 static unsigned int cmd_wake_sources;
 
@@ -150,6 +151,8 @@ void configure_wake_sources(int wake_sources)
 	if(BB_WDT1_WAKE)
 		nvic_enable_irq(CM3_IRQ_WDT1_WAKE);
 
+	if(BB_PRCMWAKE1)
+		nvic_enable_irq(CM3_IRQ_PRCM_M3_IRQ1);
 #if 0
 	/* Not recommended */
 	if(BB_RTC_TIMER_WAKE)
@@ -200,6 +203,7 @@ void clear_wake_sources(void)
 	nvic_disable_irq(CM3_IRQ_ADC_TSC_WAKE);
 	nvic_disable_irq(CM3_IRQ_USB0WOUT);
 	nvic_disable_irq(CM3_IRQ_USB1WOUT);
+	nvic_disable_irq(CM3_IRQ_PRCM_M3_IRQ1);
 	if (soc_id == AM43XX_SOC_ID)
 		nvic_disable_irq(CM3_IRQ_TPM_WAKE);
 
