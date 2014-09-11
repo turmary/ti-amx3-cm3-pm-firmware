@@ -22,7 +22,7 @@
 #define DS_ENABLE_SHIFT		17
 #define DS_ENABLE_MASK		(1 << DS_ENABLE_SHIFT)
 
-#define WAKE_ALL		0x17ff	/* all except MPU_WAKE in DS modes */
+#define WAKE_ALL		0x37ff	/* all except MPU_WAKE in DS modes */
 #define MPU_WAKE		0x800
 
 #define RTC_TIMEOUT_DEFAULT	0x2
@@ -44,6 +44,11 @@
 #define AM43XX_PRM_IO_PMCTRL		0x44DF4024
 #define PRM_IO_PMCTRL_IO_ISO_STATUS	(1<<25)
 #define PRM_IO_PMCTRL_IO_ISO_CTRL	(1<<24)
+
+#define PRM_IRQSTATUS_M3		0x44DF000C
+#define PRM_IRQENABLE_M3		0x44DF0010
+#define PRM_IRQENABLE_M3_IO_EN		(1<<9)
+#define PRM_IRQSTATUS_M3_IO_ST		(1<<9)
 
 extern unsigned int soc_id;
 extern unsigned int soc_rev;
