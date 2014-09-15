@@ -4,7 +4,8 @@ MEMORY
 {
     UMEM (rwx) : ORIGIN = 0x00000000, LENGTH = 0x00004000
     DMEM (rw) : ORIGIN = 0x00080000, LENGTH = 0x00002000
-    LOGBUF (rw) : ORIGIN = 0x00081000, LENGTH = 0x00001000
+    AUXDATA (rw) : ORIGIN = 0x00081000, LENGTH = 0x00000100
+    LOGBUF (rw) : ORIGIN = 0x00081100, LENGTH = 0x00000F00
 }
 
 _end_stack = 0x00081000;
@@ -40,10 +41,16 @@ SECTIONS
         *(COMMON)
         _end_bss = .;
     } > DMEM
+    .aux_data :
+    {
+        _aux_data_start = .;
+       . += 0x100;
+        _aux_data_end = .;
+    } >AUXDATA
     .logbuf :
     {
         _logbuf_start = .;
-       . += 0x1000;
+       . += 0xF00;
         _logbuf_end = .;
     } >LOGBUF
 }

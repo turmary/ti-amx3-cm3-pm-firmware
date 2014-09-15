@@ -104,8 +104,8 @@ struct cm3_resource_table rsc_tab __attribute__ ((section (".resource_table"))) 
 
 	{RSC_TRACE,},
 	{
-		0x81000,	/* Device address */
-		0x1000,		/* Length */
+		0x81100,	/* Device address */
+		0xF00,		/* Length */
 		0,		/* Reserved */
 		"log_buf",	/* Name */
 	},
