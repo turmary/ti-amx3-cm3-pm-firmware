@@ -87,7 +87,7 @@ struct deep_sleep_data {
 	unsigned int pd_mpu_ram_ret_state :1;	/* Sabertooth RAM in retention state */
 	unsigned int pd_mpu_l1_ret_state :1;	/* L1 memory in retention state */
 	unsigned int pd_mpu_l2_ret_state :1;	/* L2 memory in retention state */
-	unsigned int res1 :1;
+	unsigned int res1 :2;
 
 	unsigned int pd_per_state :2;	 	/* Powerstate of PD_PER */
 	unsigned int pd_per_icss_mem_ret_state :1; /* ICSS memory in retention state */
