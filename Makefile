@@ -1,6 +1,6 @@
 VERSION = 1
-PATCHLEVEL = 8
-SUBLEVEL = 9
+PATCHLEVEL = 9
+SUBLEVEL = 0
 NAME = "Bday Edition"
 
 CROSS_COMPILE = arm-arago-linux-gnueabi-
