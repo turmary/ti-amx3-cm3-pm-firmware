@@ -156,7 +156,10 @@ void vtt_high(void)
 
 	__raw_writel((1 << vtt_gpio_pin), GPIO0_BASE + GPIO_SETDATAOUT);
 
-	hwmod_disable(HWMOD_GPIO0);
+	/* Leave HWMOD_GPIO0 enabled for case where GPIO wake is used,
+	 * the interrupt will be pending for MPU and cause hang if we shut
+	 * it back off
+	 */
 }
 
 void vtt_low(void)
