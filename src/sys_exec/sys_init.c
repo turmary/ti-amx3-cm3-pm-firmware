@@ -11,6 +11,7 @@
 */
 
 #include <cm3.h>
+#include <debug.h>
 #include <device_cm3.h>
 #include <prcm_core.h>
 #include <msg.h>
@@ -59,6 +60,8 @@ int am335_init(void)
 
 	/* Notify A8 of init completion */
 	a8_notify(CMD_STAT_PASS);
+
+	info("Booted version 0x%x of CM3 PM Firmware.", CM3_VERSION);
 
 	/* Ok we are done here */
 
