@@ -14,7 +14,7 @@
 #include <stddef.h>
 
 #define CM3_RSC_TBL_VERSION	0x1
-#define CM3_RSC_NUM		0x3
+#define CM3_RSC_NUM		0x1
 
 /*
  * These values and structs must match those in include/linux/remoteproc.h
@@ -26,7 +26,6 @@
 #define RSC_DEVMEM	1
 #define RSC_TRACE	2
 #define RSC_VDEV	3
-#define RSC_INTMEM	4
 
 struct resource_table {
 	uint32_t ver;
@@ -47,23 +46,10 @@ struct fw_rsc_trace {
 	uint8_t name[32];
 } __attribute__ ((__packed__));
 
-struct fw_rsc_intmem {
-	uint32_t version;
-	uint32_t da;
-	uint32_t pa;
-	uint32_t len;
-	uint32_t reserved[2];
-	uint8_t name[32];
-} __attribute__ ((__packed__));
-
 struct cm3_resource_table {
 	struct resource_table base;
 
 	uint32_t offset[CM3_RSC_NUM]; /* Should match 'num' in actual definition */
-	struct fw_rsc_hdr cm3_umem_hdr;
-	struct fw_rsc_intmem cm3_umem;
-	struct fw_rsc_hdr cm3_dmem_hdr;
-	struct fw_rsc_intmem cm3_dmem;
 	struct fw_rsc_hdr cm3_trace_hdr;
 	struct fw_rsc_trace cm3_trace;
 } __attribute__ ((__packed__));
@@ -77,29 +63,7 @@ struct cm3_resource_table rsc_tab __attribute__ ((section (".resource_table"))) 
 
 	/* List of offsets to each resource entry header */
 	{
-		__builtin_offsetof(struct cm3_resource_table, cm3_umem_hdr),
-		__builtin_offsetof(struct cm3_resource_table, cm3_dmem_hdr),
 		__builtin_offsetof(struct cm3_resource_table, cm3_trace_hdr),
-	},
-
-	{RSC_INTMEM,},
-	{
-		0x1,		/* intmem version */
-		0x0,		/* Device address */
-		0x44d00000,	/* Physical address */
-		0x4000,		/* Length */
-		{0, 0,},	/* Reserved */
-		"umem",		/* Name */
-	},
-
-	{RSC_INTMEM,},
-	{
-		0x1,		/* intmem version */
-		0x80000,	/* Device address */
-		0x44d80000,	/* Physical address */
-		0x2000,		/* Length */
-		{0, 0,},	/* Reserved */
-		"dmem",		/* Name */
 	},
 
 	{RSC_TRACE,},
