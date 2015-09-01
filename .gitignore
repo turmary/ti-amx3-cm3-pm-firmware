@@ -41,6 +41,7 @@ tags
 # generated version.h header
 version.h
 
+.tmp.*
 *.orig
 *~
 \#*#
