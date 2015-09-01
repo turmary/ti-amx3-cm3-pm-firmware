@@ -41,6 +41,9 @@ tags
 # generated version.h header
 version.h
 
+# generated dependency files
+*.d
+
 .tmp.*
 *.orig
 *~

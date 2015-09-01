@@ -16,7 +16,7 @@ INCLUDES = $(SRCDIR)/include
 CFLAGS =-mcpu=cortex-m3 -mthumb -nostdlib -Wall -Wundef \
 	-Werror-implicit-function-declaration -Wstrict-prototypes \
 	-Wdeclaration-after-statement -fno-delete-null-pointer-checks \
-	-Wempty-body -fno-strict-overflow  -g -I$(INCLUDES) -O2
+	-Wempty-body -fno-strict-overflow  -g -I$(INCLUDES) -O2	-MD
 LDFLAGS =-nostartfiles -fno-exceptions -Tfirmware.ld
 
 EXECUTABLE=am335x-pm-firmware.elf
@@ -50,9 +50,12 @@ $(EXECUTABLE): $(OBJECTS)
 .c.o:
 	$(QUIET_CC) $(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
+-include $(OBJECTS:%.o=%.d)
+
 clean:
 	@echo "Cleaning up..."
-	-$(shell find . -name *.o -exec rm {} \;)
+	-$(shell find . -name *.o -delete)
+	-$(shell find . -name *.d -delete)
 	-$(shell rm -f $(SRCDIR)/include/version.h)
 	-$(shell rm -f $(BINDIR)/$(EXECUTABLE))
 	-$(shell rm -f $(BINDIR)/$(EXECUTABLE:.elf=.bin))
