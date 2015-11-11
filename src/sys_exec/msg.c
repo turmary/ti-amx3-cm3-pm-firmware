@@ -24,6 +24,7 @@ int mem_type;
 bool vtt_toggle;
 int vtt_gpio_pin;
 bool io_isolation;
+bool debug_halt;
 
 static union state_data custom_state_data;
 
@@ -183,6 +184,7 @@ void msg_cmd_dispatcher(void)
 	vtt_toggle = (param3 & VTT_STAT_MASK) >> VTT_STAT_SHIFT;
 	vtt_gpio_pin = (param3 & VTT_GPIO_PIN_MASK) >> VTT_GPIO_PIN_SHIFT;
 	io_isolation = (param3 & IO_ISOLATION_STAT_MASK) >> IO_ISOLATION_STAT_SHIFT;
+	debug_halt = (param3 & DBG_HALT_MASK) >> DBG_HALT_SHIFT;
 
 	param1 = msg_read(PARAM1_REG);
 	param2 = msg_read(PARAM2_REG);

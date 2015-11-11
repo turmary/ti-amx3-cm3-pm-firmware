@@ -138,6 +138,8 @@ void a8_lp_ds0_handler(struct cmd_data *data)
 		}
 	}
 
+	if (debug_halt) while(1);
+
 	/* TODO: wait for power domain state change interrupt from PRCM */
 	clkdm_sleep(CLKDM_WKUP);
 }

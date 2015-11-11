@@ -30,6 +30,8 @@
 #define VTT_GPIO_PIN_MASK	(0x3f << 4)
 #define IO_ISOLATION_STAT_SHIFT	(10)
 #define IO_ISOLATION_STAT_MASK	(0x1 << 10)
+#define DBG_HALT_SHIFT		(11)
+#define DBG_HALT_MASK		(0x1 << 11)
 
 /* Memory type passed in IPC register */
 #define MEM_TYPE_DDR2		2
@@ -138,6 +140,7 @@ extern int mem_type;		/* Memory Type 2 = DDR2, 3 = DDR3, 4 = LPDDR2 */
 extern bool vtt_toggle;		/* VTT Toggle  true = required */
 extern int vtt_gpio_pin;	/* VTT GPIO Pin */
 extern bool io_isolation;	/* Set IO Isolation  true = required */
+extern bool debug_halt;		/* Debug halt - will stop at end of DS0 sequence */
 
 void m3_firmware_version(void);
 void m3_param_reset(void);
