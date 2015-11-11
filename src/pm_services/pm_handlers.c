@@ -138,6 +138,8 @@ void a8_lp_ds0_handler(struct cmd_data *data)
 		}
 	}
 
+	if (debug_halt) while(1);
+
 	/* TODO: wait for power domain state change interrupt from PRCM */
 	clkdm_sleep(CLKDM_WKUP);
 }
@@ -185,6 +187,8 @@ void a8_lp_ds1_handler(struct cmd_data *data)
 
 	clkdm_sleep(CLKDM_MPU);
 
+	if (debug_halt) while(1);
+
 	clkdm_sleep(CLKDM_WKUP);
 
 	/* TODO: wait for power domain state change interrupt from PRCM */
@@ -231,6 +235,8 @@ void a8_lp_ds2_handler(struct cmd_data *data)
 	/* DPLL retention update for PG 2.0 */
 	plls_power_down();
 
+	if (debug_halt) while(1);
+
 	clkdm_sleep(CLKDM_WKUP);
 
 	/*TODO: wait for power domain state change interrupt from PRCM */
@@ -265,6 +271,8 @@ void a8_standby_handler(struct cmd_data *data)
 	pd_state_change(per_st, PD_PER);
 
 	clkdm_sleep(CLKDM_MPU);
+
+	if (debug_halt) while(1);
 }
 
 void a8_cpuidle_handler(struct cmd_data *data)
