@@ -240,6 +240,7 @@ void a8_standby_handler(struct cmd_data *data)
 {
 	struct deep_sleep_data *local_cmd = &data->data->deep_sleep;
 	unsigned int mpu_st;
+	unsigned int per_st;
 
 	if (cmd_handlers[cmd_global_data.cmd_id].do_ddr)
 		ds_save();
@@ -254,10 +255,14 @@ void a8_standby_handler(struct cmd_data *data)
 	else
 		configure_deepsleep_count(DS_COUNT_DEFAULT);
 
+	per_st = get_pd_per_stctrl_val(local_cmd);
 	mpu_st = get_pd_mpu_stctrl_val(local_cmd);
 
 	/* MPU power domain state change */
 	pd_state_change(mpu_st, PD_MPU);
+
+	/* PER power domain state change */
+	pd_state_change(per_st, PD_PER);
 
 	clkdm_sleep(CLKDM_MPU);
 }
@@ -474,6 +479,7 @@ void a8_wake_standby_handler(void)
 
 	result = verify_pd_transitions();
 
+	pd_state_restore(PD_PER);
 	pd_state_restore(PD_MPU);
 
 	essential_hwmods_enable();
