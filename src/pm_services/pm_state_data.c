@@ -117,6 +117,8 @@ union state_data standby_data = {
 		.pd_mpu_l1_ret_state		= MEM_BANK_RET_ST_OFF,
 		.pd_mpu_l2_ret_state		= MEM_BANK_RET_ST_OFF,
 
+		.pd_per_state			= PD_ON,
+
 		.wake_sources			= WAKE_ALL | MPU_WAKE,
 	},
 };
