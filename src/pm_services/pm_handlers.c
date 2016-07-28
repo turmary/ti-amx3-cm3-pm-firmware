@@ -344,14 +344,6 @@ void generic_wake_handler(int wakeup_reason)
 	if (cmd_handlers[cmd_global_data.cmd_id].do_ddr)
 		ds_restore();
 
-	/*
-	 * PSP kernels have a long standing bug in sleep33xx.S,
-	 * they don't re-enable the EMIF hwmod in their resume
-	 * path. Keep compatibily with these kernels.
-	 */
-	if (!cmd_handlers[cmd_global_data.cmd_id].do_ddr)
-		hwmod_enable(HWMOD_EMIF);
-
 	/* If everything is done, we init things again */
 	/* Flush out NVIC interrupts */
 	for (i = 0; i < CM3_NUM_EXT_INTERRUPTS; i++) {
