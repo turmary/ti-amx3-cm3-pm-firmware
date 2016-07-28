@@ -274,7 +274,8 @@ void ds_restore(void)
 	vtp_enable();
 
 	/* XXX: Why is this required here for DDR3? */
-	hwmod_enable(HWMOD_EMIF);
+	if (mem_type == MEM_TYPE_DDR3)
+		hwmod_enable(HWMOD_EMIF);
 
 	vtt_high();
 
