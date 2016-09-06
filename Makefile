@@ -1,6 +1,6 @@
 VERSION = 1
 PATCHLEVEL = 9
-SUBLEVEL = 1
+SUBLEVEL = 2
 NAME = "Bday Edition"
 
 CROSS_COMPILE ?= arm-linux-gnueabihf-
