@@ -171,7 +171,7 @@ void vtp_enable(void)
 	/* toggle the CLRZ bit */
 	var = __raw_readl(VTP0_CTRL_REG);
 
-	__raw_writel((var & VTP_CTRL_START_EN), VTP0_CTRL_REG);
+	__raw_writel((var & ~VTP_CTRL_START_EN), VTP0_CTRL_REG);
 	__raw_writel((var | VTP_CTRL_START_EN), VTP0_CTRL_REG);
 
 	/* poll for VTP ready */
