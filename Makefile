@@ -13,7 +13,7 @@ SRCDIR = src
 BINDIR = bin
 
 INCLUDES = $(SRCDIR)/include
-CFLAGS =-mcpu=cortex-m3 -mthumb -nostdlib -Wall -Wundef \
+CFLAGS =-mcpu=cortex-m3 -mthumb -nostdlib -ffreestanding -Wall -Wundef \
 	-Werror-implicit-function-declaration -Wstrict-prototypes \
 	-Wdeclaration-after-statement -fno-delete-null-pointer-checks \
 	-Wempty-body -fno-strict-overflow  -g -I$(INCLUDES) -O2	-MD
